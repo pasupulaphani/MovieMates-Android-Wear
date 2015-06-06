@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MovieMates</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="odeon_cinema">Odeon</string>
+    <string name="odeon_cinema_desc">The Odeon Cinema</string>
+</resources>
