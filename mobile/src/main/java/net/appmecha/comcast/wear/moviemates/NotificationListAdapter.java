@@ -8,14 +8,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import net.appmecha.comcast.wear.moviemates.CinemaServices.FilmDetail;
+import net.appmecha.comcast.wear.moviemates.CinemaServices.FilmTime;
+
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Neil on 06/06/2015.
  */
-public class NotificationListAdapter extends ArrayAdapter<NotificationItem> {
+public class NotificationListAdapter extends ArrayAdapter<FilmDetail> {
 
-    public NotificationListAdapter(Context context, List<NotificationItem> items) {
+    public NotificationListAdapter(Context context, List<FilmDetail> items) {
                 super(context, R.layout.notification_item, items);
 
             }
@@ -31,27 +35,36 @@ public class NotificationListAdapter extends ArrayAdapter<NotificationItem> {
 
                         // initialize the view holder
                         viewHolder = new ViewHolder();
-                        viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-                        viewHolder.tvDescription = (TextView) convertView.findViewById(R.id.tvDesc);
-                        convertView.setTag(viewHolder);
+                    viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+                    viewHolder.tvStartTime = (TextView) convertView.findViewById(R.id.tvStartTime);
+                    viewHolder.tvDuration = (TextView) convertView.findViewById(R.id.tvDuration);
+                    viewHolder.tvCertification = (TextView) convertView.findViewById(R.id.tvCertification);
+
+                    convertView.setTag(viewHolder);
                     } else {
                        // recycle the already inflated view
                        viewHolder = (ViewHolder) convertView.getTag();
                     }
                        // update the item view
-               NotificationItem item = getItem(position);
+               FilmDetail item = getItem(position);
+                FilmTime firstTime=((FilmTime) item.Times.get(0));
 
-               viewHolder.tvTitle.setText(item.title);
-               viewHolder.tvDescription.setText(item.description);
+                viewHolder.tvTitle.setText(item.Name);
+                viewHolder.tvStartTime.setText(firstTime.StartTime.toString());
+                viewHolder.tvDuration.setText(String.valueOf(item.Duration));
+                //viewHolder.tvDistance.setText("");
 
-               return convertView;
+                return convertView;
            }
 
 
     private static class ViewHolder {
-        ImageView ivIcon;
-        TextView tvTitle;
-        TextView tvDescription;
+        TextView tvDistance;
+         TextView tvTitle;
+        TextView tvCertification;
+        TextView tvStartTime;
+        TextView tvDuration;
+
     }
 
 }

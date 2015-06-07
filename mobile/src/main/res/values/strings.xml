@@ -5,4 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="odeon_cinema">Odeon</string>
     <string name="odeon_cinema_desc">The Odeon Cinema</string>
+    <string name="title">NotificationTitle</string>
+    <string name="content">Some Content</string>
+    <string name="label">Some Label</string>
+    <string name="play">Play</string>
 </resources>
