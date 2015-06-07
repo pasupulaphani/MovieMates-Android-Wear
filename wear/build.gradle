@@ -2,13 +2,14 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion '21'
-
+    signingConfigs {
+    }
+    compileSdkVersion 22
+    buildToolsVersion '22.0.1'
     defaultConfig {
         applicationId "net.appmecha.comcast.wear.moviemates"
-        minSdkVersion 21
-        targetSdkVersion 21
+        minSdkVersion 22
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
