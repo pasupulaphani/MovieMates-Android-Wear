@@ -2,7 +2,11 @@ package net.appmecha.comcast.wear.moviemates;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.Context;
 import android.content.res.Resources;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -18,9 +22,11 @@ import java.util.ArrayList;
 /**
  * Created by Neil on 06/06/2015.
  */
-public class notificationlist_fragment extends ListFragment {
-
+public class notificationlist_fragment extends ListFragment implements LocationListener {
+    protected LocationManager locationManager;
+    protected LocationListener locationListener;
     private List<FilmDetail> mItems;
+    protected Context context;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -33,12 +39,35 @@ public class notificationlist_fragment extends ListFragment {
 
         mItems=spoofFilms.GetFilms(0, 0);
 
-        IFilmServices spoofFilms1=new RealtimeFilmApi();
+//            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
+            IFilmServices spoofFilms1=new RealtimeFilmApi();
         double lat = 51.5033630;
         double lon = -0.1276250;
         spoofFilms1.GetFilms(lon, lat);
 
         setListAdapter(new NotificationListAdapter(getActivity(), mItems));
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 
     public interface OnItemSelectedListener {
