@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.app.RemoteInput;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements notificationlist_
     private static final String EXTRA_EVENT_FILM = "extra_event_film";
     private static final String EXTRA_EVENT_START = "extra_event_start";
     private static final String EXTRA_EVENT_CINEMA = "extra_event_cinema";
+    public static final String ACTION_DEMAND = "com.androidweardocs.ACTION_DEMAND";
+    public static final String EXTRA_MESSAGE = "com.androidweardocs.EXTRA_MESSAGE";
+    public static final String EXTRA_VOICE_REPLY = "com.androidweardocs.EXTRA_VOICE_REPLY";
 
 
     private int notificationId = 0;
@@ -129,21 +133,61 @@ public class MainActivity extends AppCompatActivity implements notificationlist_
     private void sendNotification(FilmDetail film) {
         //TODO Hook into wearable
         //https://developer.android.com/training/wearables/notifications/creating.html
-        Intent viewIntent = new Intent(this, MainActivity.class);
+        Intent viewIntent = new Intent(this, NotificationIntentReceiver.class);
         viewIntent.putExtra(EXTRA_EVENT_ID, 17);
         viewIntent.putExtra(EXTRA_EVENT_FILM, film.Name);
         viewIntent.putExtra(EXTRA_EVENT_START,  film.Times.get(0).StartTime);
         viewIntent.putExtra(EXTRA_EVENT_CINEMA, film.Cinema);
+        viewIntent.putExtra(EXTRA_MESSAGE, "Reply icon selected.");
+        viewIntent.setAction(ACTION_DEMAND);
 
-        PendingIntent viewPendingIntent = PendingIntent.getActivity(this, 0, viewIntent, 0);
-        Notification notification = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_play_light)
-                .setContentTitle(String.format(film.Name))
-                .setContentText("This film is starting soon!")
-                .setContentIntent(viewPendingIntent)
+
+//        PendingIntent viewPendingIntent = PendingIntent.getActivity(this, 0, viewIntent, 0);
+//        Notification notification = new NotificationCompat.Builder(this)
+//                .setSmallIcon(R.drawable.ic_play_light)
+//                .setContentTitle(String.format(film.Name))
+//                .setContentText("This film is starting soon!")
+//                .setContentIntent(viewPendingIntent)
+//                .build();
+//
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+//        notificationManager.notify(notificationId++, notification);
+
+
+        // Create a pending intent using the local broadcast receiver
+        PendingIntent demandPendingIntent =
+                PendingIntent.getBroadcast(this, 0, viewIntent, 0);
+
+        // Create RemoteInput object for a voice reply (demand)
+        String replyLabel = getResources().getString(R.string.app_name);
+        RemoteInput remoteInput = new RemoteInput.Builder(EXTRA_VOICE_REPLY)
+                .setLabel(replyLabel)
                 .build();
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        // Create a wearable action
+        NotificationCompat.Action replyAction =
+                new NotificationCompat.Action.Builder(R.drawable.ic_reply_icon,
+                        getString(R.string.reply_label), demandPendingIntent)
+                        .addRemoteInput(remoteInput)
+                        .build();
+
+        // Create a wearable extender for a notification
+        NotificationCompat.WearableExtender wearableExtender =
+                new NotificationCompat.WearableExtender()
+                        .addAction(replyAction);
+
+        // Create a notification and extend it for the wearable
+        Notification notification =
+                new NotificationCompat.Builder(this)
+                        .setContentTitle(String.format(film.Name))
+                        .setContentText("This film is starting soon!")
+                        .setSmallIcon(R.drawable.ic_play_light)
+                        .extend(wearableExtender)
+                        .build();
+
+        NotificationManagerCompat notificationManager =
+                NotificationManagerCompat.from(this);
+
         notificationManager.notify(notificationId++, notification);
     }
 
