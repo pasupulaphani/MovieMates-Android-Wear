@@ -27,7 +27,7 @@ public class LocalFilmSource implements IFilmServices {
 
 
     @Override
-    public ArrayList<FilmDetail> GetFilms(long longitude, long latitude) {
+    public ArrayList<FilmDetail> GetFilms(double longitude, double latitude) {
         String sJson= null;
         try {
             sJson = loadJSONFromResource(res);

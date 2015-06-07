@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import net.appmecha.comcast.wear.moviemates.CinemaServices.FilmDetail;
 import net.appmecha.comcast.wear.moviemates.CinemaServices.IFilmServices;
+import net.appmecha.comcast.wear.moviemates.CinemaServices.RealtimeFilmApi;
 import net.appmecha.comcast.wear.moviemates.CinemaServices.SpoofFilmServices;
 
 import java.util.List;
@@ -30,7 +31,12 @@ public class notificationlist_fragment extends ListFragment {
 
         IFilmServices spoofFilms=new SpoofFilmServices();
 
-        mItems=spoofFilms.GetFilms(0L, 0L);
+        mItems=spoofFilms.GetFilms(0, 0);
+
+        IFilmServices spoofFilms1=new RealtimeFilmApi();
+        double lat = 51.5033630;
+        double lon = -0.1276250;
+        spoofFilms1.GetFilms(lon, lat);
 
         setListAdapter(new NotificationListAdapter(getActivity(), mItems));
     }

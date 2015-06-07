@@ -11,7 +11,7 @@ import java.util.Date;
 public class SpoofFilmServices implements IFilmServices {
 
 
-    public ArrayList<FilmDetail> GetFilms(long longitude,long latitude){
+    public ArrayList<FilmDetail> GetFilms(double longitude,double latitude){
         ArrayList<FilmDetail> fl=new ArrayList<FilmDetail>();
         int loop=Utils.randInt(1,6);
         for(int i=0;i<loop;i++) {

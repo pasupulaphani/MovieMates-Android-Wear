@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity implements notificationlist_
     private static final String EXTRA_EVENT_FILM = "extra_event_film";
     private static final String EXTRA_EVENT_START = "extra_event_start";
     private static final String EXTRA_EVENT_CINEMA = "extra_event_cinema";
-    public static final String ACTION_DEMAND = "com.androidweardocs.ACTION_DEMAND";
-    public static final String EXTRA_MESSAGE = "com.androidweardocs.EXTRA_MESSAGE";
-    public static final String EXTRA_VOICE_REPLY = "com.androidweardocs.EXTRA_VOICE_REPLY";
+    public static final String ACTION_DEMAND = "ACTION_DEMAND";
+    public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
+    public static final String EXTRA_VOICE_REPLY = "EXTRA_VOICE_REPLY";
 
 
     private int notificationId = 0;
@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements notificationlist_
                         .setContentTitle(String.format(film.Name))
                         .setContentText("This film is starting soon!")
                         .setSmallIcon(R.drawable.ic_play_light)
+                        .setDefaults(Notification.DEFAULT_ALL)
                         .extend(wearableExtender)
                         .build();
 
