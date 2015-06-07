@@ -36,16 +36,17 @@ public class notificationlist_fragment extends ListFragment implements LocationL
         mItems = new ArrayList<FilmDetail>();
 
         IFilmServices spoofFilms=new SpoofFilmServices();
-
+//
         mItems=spoofFilms.GetFilms(0, 0);
 
 //            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 //            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
-            IFilmServices spoofFilms1=new RealtimeFilmApi();
-        double lat = 51.5033630;
-        double lon = -0.1276250;
-        spoofFilms1.GetFilms(lon, lat);
+//            IFilmServices spoofFilms1=new RealtimeFilmApi(this);
+//
+//        double lat = 51.5033630;
+//        double lon = -0.1276250;
+//        spoofFilms1.GetFilms(lon, lat);
 
         setListAdapter(new NotificationListAdapter(getActivity(), mItems));
     }
@@ -68,6 +69,10 @@ public class notificationlist_fragment extends ListFragment implements LocationL
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    public void setItems(ArrayList<FilmDetail> items) {
+       mItems = items;
     }
 
     public interface OnItemSelectedListener {

@@ -14,9 +14,12 @@ public class SpoofFilmServices implements IFilmServices {
     public ArrayList<FilmDetail> GetFilms(double longitude,double latitude){
         ArrayList<FilmDetail> fl=new ArrayList<FilmDetail>();
         int loop=Utils.randInt(1,6);
-        for(int i=0;i<loop;i++) {
-            fl.add(CreateFilm());
-        }
+
+        fl.add(new FilmDetail("Spy","15",0.21,CreateGenres(),120,CreateFilmTimes(),"http://www.cineworld.com"));
+        fl.add(new FilmDetail("Insidious:Chapter 3","15",0.21,CreateGenres(),98,CreateFilmTimes(),"http://www.cineworld.com"));
+        fl.add(new FilmDetail("Pitch Perfect 2","12A",0.21,CreateGenres(),115,CreateFilmTimes(),"http://www.cineworld.com"));
+
+
         return fl;
     }
 

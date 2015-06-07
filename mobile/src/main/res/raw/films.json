@@ -1,18 +1,14 @@
-[
-  {
-    "title": "Terminator Quadrilogy",
-    "distance": 0.21,
-    "genres": [
-      "Action"
-    ],
-    "certificate": "15",
-    "duration": "458",
-    "times": [
-      {
-        "starttime": "2015-06-06 20:40:00",
-        "endtime": "2015-06-06 22:35:00",
-        "tickets": "http://cineworld.co.uk/booking?performance=3665518&amp;seats=STANDARD"
-      }
-    ]
-  }
-]
+{
+  "title":"The Age Of Adaline",
+  "genres":[
+    "Drama",
+    "Fantasy",
+    "Romance",
+    "Feature"
+  ],
+  "certificate":null,
+  "duration":"112",
+  "venue_website":"http://cineworld.co.uk/cinemas/10/information",
+  "starttime":"2015-06-07 18:20:00",
+  "tickets":"http://cineworld.co.uk/booking?performance=3665528&seats=STANDARD"
+}
